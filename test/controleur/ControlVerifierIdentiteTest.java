@@ -18,7 +18,7 @@ class ControlVerifierIdentiteTest {
 	
 	@BeforeEach
 	void initialiserSituation() {
-		village = new Village("Le village des irreductibles", 10, 5);
+		village = new Village("Le village des irreductibles", 10, 2);
 		abraracourcix = new Chef("Abraracourcix", 5, village);
 		village.setChef(abraracourcix);
 		controlVerifierIdentite = new ControlVerifierIdentite(village);

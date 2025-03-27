@@ -12,15 +12,13 @@ import villagegaulois.Village;
 
 class ControlAfficherVillageTest {
 
-	private static final int nbVillageoisMax = 10;
-	private static final int nbEtals = 5;
 	private ControlAfficherVillage controlAfficherVillage;
 	private Village village;
 	private Chef abraracourcix;
 	
 	@BeforeEach
 	public void initialiserSituation() {
-		village = new Village("Le village des irreductibles", nbVillageoisMax, nbEtals);
+		village = new Village("Le village des irreductibles", 10, 5);
 		abraracourcix = new Chef("Abraracourcix", 10, village);
 		village.setChef(abraracourcix);
 		controlAfficherVillage = new ControlAfficherVillage(village);
@@ -56,7 +54,7 @@ class ControlAfficherVillageTest {
 
 	@Test
 	void testDonnerNbEtals() {
-		assertEquals(nbEtals, controlAfficherVillage.donnerNbEtals());
+		assertEquals(5, controlAfficherVillage.donnerNbEtals());
 	}
 
 }
