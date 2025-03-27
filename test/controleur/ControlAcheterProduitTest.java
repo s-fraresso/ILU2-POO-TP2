@@ -13,13 +13,17 @@ class ControlAcheterProduitTest {
 	private ControlAcheterProduit controlAcheterProduit;
 	private Village village;
 	private Chef abraracourcix;
+	private ControlTrouverEtalVendeur controlTrouverEtalVendeur;
+	private ControlVerifierIdentite controlVerifierIdentite;
 	
 	@BeforeEach
 	void initialiserSituation() {
 		village = new Village("Le village des irreductibles", 10, 5);
 		abraracourcix = new Chef("Abraracourcix", 5, village);
 		village.setChef(abraracourcix);
-		controlAcheterProduit = new ControlAcheterProduit(village);
+		controlTrouverEtalVendeur = new ControlTrouverEtalVendeur(village);
+		controlVerifierIdentite = new ControlVerifierIdentite(village);
+		controlAcheterProduit = new ControlAcheterProduit(controlVerifierIdentite, controlTrouverEtalVendeur, village);
 	}
 
 	@Test
