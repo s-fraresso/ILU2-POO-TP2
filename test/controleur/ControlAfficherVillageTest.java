@@ -14,12 +14,11 @@ class ControlAfficherVillageTest {
 
 	private ControlAfficherVillage controlAfficherVillage;
 	private Village village;
-	private Chef abraracourcix;
 	
 	@BeforeEach
 	public void initialiserSituation() {
 		village = new Village("Le village des irreductibles", 10, 5);
-		abraracourcix = new Chef("Abraracourcix", 10, village);
+		Chef abraracourcix = new Chef("Abraracourcix", 10, village);
 		village.setChef(abraracourcix);
 		controlAfficherVillage = new ControlAfficherVillage(village);
 	}
