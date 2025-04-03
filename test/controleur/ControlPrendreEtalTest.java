@@ -13,20 +13,20 @@ import villagegaulois.Village;
 class ControlPrendreEtalTest {
 
 	private Village village;
+	private Gaulois asterix;
+	private Chef abraracourcix;
 	private ControlPrendreEtal controlPrendreEtal;
-	private ControlVerifierIdentite controlVerifierIdentite;
 
 	@BeforeEach
 	public void initialiserSituation() {
 		village = new Village("le village des irreductibles", 10, 2);
-		Chef abraracourcix = new Chef("Abraracourcix", 10, village);
+		abraracourcix = new Chef("Abraracourcix", 10, village);
 		village.setChef(abraracourcix);
-		Gaulois asterix = new Gaulois("Asterix", 5);
+		asterix = new Gaulois("Asterix", 5);
 		Gaulois bonemine = new Gaulois("Bonemine", 5);
 		village.ajouterHabitant(asterix);
 		village.ajouterHabitant(bonemine);
-		controlVerifierIdentite = new ControlVerifierIdentite(village);
-		controlPrendreEtal = new ControlPrendreEtal(controlVerifierIdentite, village);
+		controlPrendreEtal = new ControlPrendreEtal(new ControlVerifierIdentite(village), village);
 	}
 	
 	@Test
@@ -45,9 +45,15 @@ class ControlPrendreEtalTest {
 
 	@Test
 	void testPrendreEtal() {
+		assertEquals(-1, controlPrendreEtal.prendreEtal("Assurancetourix", "menhirs", 10), "n installe pas vendeur etranger");
 		assertEquals(0, controlPrendreEtal.prendreEtal("Asterix", "fleurs", 10), "installe premier vendeur sur etal 0");
 		assertEquals(1, controlPrendreEtal.prendreEtal("Abraracourcix", "boucliers", 15), "installe deuxieme vendeur sur etal 1");
 		assertEquals(-1, controlPrendreEtal.prendreEtal("Bonemine", "fleurs", 10), "n installe pas vendeur quand marche plein");
+		
+		village.partirVendeur(asterix);
+		assertEquals(0, controlPrendreEtal.prendreEtal("Bonemine", "fleurs", 10), "installe vendeur etal liberee");
+		village.partirVendeur(abraracourcix);
+		assertEquals(1, controlPrendreEtal.prendreEtal("Bonemine", "menhirs", 5), "installe vendeurs 2 etals simultanees");
 	}
 
 	@Test

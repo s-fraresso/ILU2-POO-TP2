@@ -48,12 +48,12 @@ class ControlAfficherVillageTest {
 
 	@Test
 	void testDonnerNomVillage() {
-		assertEquals("Le village des irreductibles", controlAfficherVillage.donnerNomVillage());
+		assertEquals("Le village des irreductibles", controlAfficherVillage.donnerNomVillage(), "donne nom village");
 	}
 
 	@Test
 	void testDonnerNbEtals() {
-		assertEquals(5, controlAfficherVillage.donnerNbEtals());
+		assertEquals(5, controlAfficherVillage.donnerNbEtals(), "donne nombre etals");
 	}
 
 }

@@ -15,6 +15,7 @@ class ControlAcheterProduitTest {
 	private ControlAcheterProduit controlAcheterProduit;
 	private Village village;
 	private Chef abraracourcix;
+	private Gaulois asterix;
 	private ControlTrouverEtalVendeur controlTrouverEtalVendeur;
 	private ControlVerifierIdentite controlVerifierIdentite;
 	
@@ -28,7 +29,7 @@ class ControlAcheterProduitTest {
 		controlVerifierIdentite = new ControlVerifierIdentite(village);
 		controlAcheterProduit = new ControlAcheterProduit(controlVerifierIdentite, controlTrouverEtalVendeur, village);
 		
-		Gaulois asterix = new Gaulois("Asterix", 5);
+		asterix = new Gaulois("Asterix", 5);
 		Druide panoramix = new Druide("Panoramix", 3, 5, 10);
 		Gaulois bonemine = new Gaulois("Bonemine", 5);
 		
@@ -64,6 +65,10 @@ class ControlAcheterProduitTest {
 		
 		String[] vendeursBoucliers = new String[0];
 		assertArrayEquals(vendeursBoucliers, controlAcheterProduit.rechercherVendeursProduit("boucliers"), "ne trouve pas produit inexistant");
+		
+		vendeursFleurs = new String[] {"Bonemine"};
+		village.partirVendeur(asterix);
+		assertArrayEquals(vendeursFleurs, controlAcheterProduit.rechercherVendeursProduit("fleurs"), "ne trouve pas vendeur parti");
 	}
 
 	@Test
@@ -71,6 +76,10 @@ class ControlAcheterProduitTest {
 		assertEquals(5, controlAcheterProduit.acheterProduit("Asterix", 5), "achete bonne quantite de produit si disponible");
 		assertEquals(5, controlAcheterProduit.acheterProduit("Asterix", 6), "achete quantite de produit max si stock indisponible");
 		assertEquals(0, controlAcheterProduit.acheterProduit("Asterix", 5), "achete zero produit si stock epuise");
+		assertEquals(0, controlAcheterProduit.acheterProduit("Asterix", -2), "achete zero produit si demande negative");
+		assertEquals(0, controlAcheterProduit.acheterProduit("Assurancetourix", 5), "achete zero produit si vendeur inexistant");
+		village.installerVendeur(abraracourcix, "boucliers", 5);
+		village.partirVendeur(abraracourcix);
+		assertEquals(0, controlAcheterProduit.acheterProduit("Abraracourcix", 5), "achete zero produit si vendeur parti");
 	}
-
 }

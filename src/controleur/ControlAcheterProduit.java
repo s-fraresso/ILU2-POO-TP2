@@ -1,5 +1,6 @@
 package controleur;
 
+import villagegaulois.Etal;
 import villagegaulois.Village;
 import personnages.Gaulois;
 
@@ -36,6 +37,13 @@ public class ControlAcheterProduit {
 	}
 	
 	public int acheterProduit(String nomVendeur, int nbProduit) {
-		return controlTrouverEtalVendeur.trouverEtalVendeur(nomVendeur).acheterProduit(nbProduit);
+		if (nbProduit <= 0) {
+			return 0;
+		}
+		Etal etalVendeur = controlTrouverEtalVendeur.trouverEtalVendeur(nomVendeur);
+		if (etalVendeur == null) {
+			return 0;
+		}
+		return etalVendeur.acheterProduit(nbProduit);
 	}
 }

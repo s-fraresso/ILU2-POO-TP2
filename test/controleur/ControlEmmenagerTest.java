@@ -2,6 +2,7 @@ package controleur;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -30,19 +31,22 @@ class ControlEmmenagerTest {
 
 	@Test
 	void testIsHabitant() {
-		assertTrue(controlEmmenager.isHabitant("Abraracourcix"));
+		assertTrue(controlEmmenager.isHabitant("Abraracourcix"), "chef est habitant");
 		controlEmmenager.ajouterGaulois("Bonemine", 10);
-		assertTrue(controlEmmenager.isHabitant("Bonemine"));
+		assertTrue(controlEmmenager.isHabitant("Bonemine"), "villageois gaulois est habitant");
 		controlEmmenager.ajouterDruide("Panoramix", 10, 1, 5);
-		assertTrue(controlEmmenager.isHabitant("Panoramix"));
-		assertFalse(controlEmmenager.isHabitant("Existe pas"));
+		assertTrue(controlEmmenager.isHabitant("Panoramix"), "villageois druide est habitant");
+		assertFalse(controlEmmenager.isHabitant("Assurancetourix"), "etranger n est pas habitant");
 	}
 
 	@Test
 	void testAjouterDruide() {
 		assertFalse(controlEmmenager.isHabitant("Panoramix"));
 		controlEmmenager.ajouterDruide("Panoramix", 10, 1, 5);
-		assertTrue(controlEmmenager.isHabitant("Panoramix"));
+		assertTrue(controlEmmenager.isHabitant("Panoramix"), "ajout druide normal");
+		assertThrows(IllegalArgumentException.class, () -> controlEmmenager.ajouterDruide("Panoramix2", -1, 1, 5), "force negative");
+		assertThrows(IllegalArgumentException.class, () -> controlEmmenager.ajouterDruide("Panoramix2", 3, -2, 5), "effetPotionMin negative");
+		assertThrows(IllegalArgumentException.class, () -> controlEmmenager.ajouterDruide("Panoramix2", 3, 5, 1), "min et max inverses");
 	}
 
 	@Test
@@ -51,6 +55,7 @@ class ControlEmmenagerTest {
 		controlEmmenager.ajouterGaulois("Bonemine", 10);
 		assertTrue(controlEmmenager.isHabitant("Bonemine"));
 		assertFalse(controlEmmenager.isHabitant("PasBonemine"));
+		assertThrows(IllegalArgumentException.class, () -> controlEmmenager.ajouterGaulois("Asterix", -1), "force negative");
 	}
 
 	@Test

@@ -17,8 +17,7 @@ class ControlAfficherMarcheTest {
 	@BeforeEach
 	void initialiserSituation() {
 		village = new Village("Le village des irreductibles", 10, 2);
-		Chef abraracourcix = new Chef("Abraracourcix", 5, village);
-		village.setChef(abraracourcix);
+		village.setChef(new Chef("Abraracourcix", 5, village));
 		controlAfficherMarche = new ControlAfficherMarche(village);
 	}
 
@@ -42,6 +41,10 @@ class ControlAfficherMarcheTest {
 		village.installerVendeur(bonemine, "menhirs", 10);
 		infosCible = new String[] {"Asterix", "5", "fleurs", "Bonemine", "10", "menhirs"};
 		assertArrayEquals(infosCible, controlAfficherMarche.donnerInfosMarche(), "marche plein");
+		
+		village.partirVendeur(asterix);
+		infosCible = new String[] {"Bonemine", "10", "menhirs"};
+		assertArrayEquals(infosCible, controlAfficherMarche.donnerInfosMarche(), "marche apres depart vendeur");
 	}
 
 }

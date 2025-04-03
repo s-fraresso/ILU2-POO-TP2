@@ -14,13 +14,11 @@ class ControlVerifierIdentiteTest {
 	
 	private ControlVerifierIdentite controlVerifierIdentite;
 	private Village village;
-	private Chef abraracourcix;
 	
 	@BeforeEach
 	void initialiserSituation() {
 		village = new Village("Le village des irreductibles", 10, 2);
-		abraracourcix = new Chef("Abraracourcix", 5, village);
-		village.setChef(abraracourcix);
+		village.setChef(new Chef("Abraracourcix", 5, village));
 		controlVerifierIdentite = new ControlVerifierIdentite(village);
 	}
 
@@ -32,7 +30,7 @@ class ControlVerifierIdentiteTest {
 	@Test
 	void testVerifierIdentite() {
 		assertTrue(controlVerifierIdentite.verifierIdentite("Abraracourcix"), "reconnait chef");
-		
+				
 		Gaulois asterix = new Gaulois("Asterix", 5);
 		village.ajouterHabitant(asterix);
 		assertTrue(controlVerifierIdentite.verifierIdentite("Asterix"), "reconnait villageois gaulois");

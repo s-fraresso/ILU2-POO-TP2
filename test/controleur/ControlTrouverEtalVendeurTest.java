@@ -34,13 +34,18 @@ class ControlTrouverEtalVendeurTest {
 		assertNull(controlTrouverEtalVendeur.trouverEtalVendeur("Asterix"), "ne trouve pas etal etranger");
 		
 		village.ajouterHabitant(asterix);
-		assertNull(controlTrouverEtalVendeur.trouverEtalVendeur("Asterix"), "ne trouve pas etal gaulois non vendeur");
+		assertNull(controlTrouverEtalVendeur.trouverEtalVendeur("Asterix"), "ne trouve pas etal habitant non vendeur");
 		
 		village.installerVendeur(asterix, "fleurs", 10);
 		assertNotNull(controlTrouverEtalVendeur.trouverEtalVendeur("Asterix"), "trouve etal gaulois vendeur");
 		
 		village.installerVendeur(abraracourcix, "boucliers", 5);
 		assertNotNull(controlTrouverEtalVendeur.trouverEtalVendeur("Abraracourcix"), "trouve etal chef vendeur");
+		
+		assertNotEquals(controlTrouverEtalVendeur.trouverEtalVendeur("Asterix"), controlTrouverEtalVendeur.trouverEtalVendeur("Abraracourcix"), "vendeurs differents trouve etals differents");
+		
+		village.partirVendeur(asterix);
+		assertNull(controlTrouverEtalVendeur.trouverEtalVendeur("Asterix"), "ne trouve pas vendeur parti");
 	}
 
 }

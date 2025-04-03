@@ -174,7 +174,7 @@ public class Village {
 			Etal etalVendeur = null;
 			for (int i = 0; i < etals.length && !vendeurTrouve; i++) {
 				Gaulois vendeur = etals[i].getVendeur();
-				if (vendeur != null) {
+				if (vendeur != null && etals[i].isEtalOccupe()) {
 					vendeurTrouve = vendeur.getNom().equals(gaulois.getNom());
 					if (vendeurTrouve) {
 						etalVendeur = etals[i];
